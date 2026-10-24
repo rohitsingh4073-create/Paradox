@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARADOX | Network Simulator</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>PARADOX</h1>
+        <p>NETWORK RESILIENCE SIMULATOR</p>
+    </header>
+
+    <main>
+        <section class="panel">
+            <h2>Network Control</h2>
+            <label for="link">Select a connection to break</label>
+            <select id="link">
+                <option value="C,E">C — E</option>
+                <option value="A,C">A — C</option>
+                <option value="D,E">D — E</option>
+                <option value="B,D">B — D</option>
+            </select>
+            <button id="break-button" onclick="breakLink()">
+                SIMULATE FAILURE
+            </button>
+            <button class="secondary" onclick="resetNetwork()">
+                RESET NETWORK
+            </button>
+        </section>
+
+        <section class="panel">
+            <h2>Routing Analysis</h2>
+            <p id="status">System initializing...</p>
+            <p>Current route: <strong id="route">—</strong></p>
+            <p>Simulated latency: <strong id="latency">—</strong></p>
+        </section>
+
+        <section class="panel">
+            <h2>Incident Log</h2>
+            <ul id="events">
+                <li>Awaiting simulation events...</li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
