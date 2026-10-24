@@ -16,42 +16,54 @@ def shortest_path(network, start, destination):
     previous = {node: None for node in network}
 
     distances[start] = 0
-    priority_queue = [(0, start)]
+    queue = [(0, start)]
 
-    while priority_queue:
-        current_distance, current_node = heapq.heappop(priority_queue)
+    while queue:
+        distance, node = heapq.heappop(queue)
 
-        if current_distance > distances[current_node]:
+        if distance > distances[node]:
             continue
 
-        if current_node == destination:
+        if node == destination:
             break
 
-        for neighbor, latency in network[current_node].items():
-            new_distance = current_distance + latency
+        for neighbor, latency in network[node].items():
+            new_distance = distance + latency
 
             if new_distance < distances[neighbor]:
                 distances[neighbor] = new_distance
-                previous[neighbor] = current_node
-                heapq.heappush(
-                    priority_queue, (new_distance, neighbor)
-                )
+                previous[neighbor] = node
+                heapq.heappush(queue, (new_distance, neighbor))
 
     if distances[destination] == float("inf"):
         return None, float("inf")
 
     path = []
-    current = destination
+    node = destination
 
-    while current is not None:
-        path.append(current)
-        current = previous[current]
+    while node is not None:
+        path.append(node)
+        node = previous[node]
 
-    path.reverse()
-    return path, distances[destination]
+    return path[::-1], distances[destination]
 
 
-path, latency = shortest_path(network, "A", "F")
+def break_link(network, a, b):
+    network[a].pop(b, None)
+    network[b].pop(a, None)
 
-print("Route:", " -> ".join(path) if path else "Unreachable")
-print("Total latency:", latency, "ms")
+
+def show_route():
+    path, latency = shortest_path(network, "A", "F")
+    print("Route:", " -> ".join(path) if path else "Unreachable")
+    print("Latency:", latency, "ms")
+
+
+print("BEFORE FAILURE")
+show_route()
+
+print("\nBREAKING LINK C-E...")
+break_link(network, "C", "E")
+
+print("\nAFTER FAILURE")
+show_route()
