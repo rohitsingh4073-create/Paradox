@@ -19,10 +19,14 @@
             <h2>Network Control</h2>
             <label for="link">Select a connection to break</label>
             <select id="link">
-                <option value="C,E">C — E</option>
-                <option value="A,C">A — C</option>
-                <option value="D,E">D — E</option>
-                <option value="B,D">B — D</option>
+                <option value="A,B">A — B (4 ms)</option>
+                <option value="A,C">A — C (2 ms)</option>
+                <option value="B,D">B — D (5 ms)</option>
+                <option value="C,D">C — D (8 ms)</option>
+                <option value="C,E">C — E (3 ms)</option>
+                <option value="D,E">D — E (2 ms)</option>
+                <option value="D,F">D — F (6 ms)</option>
+                <option value="E,F">E — F (3 ms)</option>
             </select>
             <button id="break-button" onclick="breakLink()">
                 SIMULATE FAILURE
