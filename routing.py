@@ -59,11 +59,3 @@ def show_route():
     print("Latency:", latency, "ms")
 
 
-print("BEFORE FAILURE")
-show_route()
-
-print("\nBREAKING LINK C-E...")
-break_link(network, "C", "E")
-
-print("\nAFTER FAILURE")
-show_route()
