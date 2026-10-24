@@ -107,6 +107,7 @@ function updateNetwork(network) {
 async function refreshStatus() {
     const response = await fetch("/api/status");
     const data = await response.json();
+    updateNetwork(data.network);
 
     document.getElementById("route").textContent =
         data.route ? data.route.join(" → ") : "UNREACHABLE";
@@ -169,4 +170,5 @@ async function refreshEvents() {
     });
 }
 
+initializeNetworkGraph();
 refreshStatus();
